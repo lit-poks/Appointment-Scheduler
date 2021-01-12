@@ -21,7 +21,7 @@
         <div class="modal-content">
             <div class="modal-header bg-warning">
                 <h5 class="modal-title">Create Room</h5>
-                <button type="button" class="close" data-dismiss="modal">
+                <button type="button" class="close" data-dismiss="modal" (click)="onClose()">
                     <span>&times;</span>
                 </button>
             </div>
@@ -36,10 +36,11 @@
                         <label for="roomName" class="form-label">Room Name</label>
                         <input type="text" class="form-control" formControlName="roomName">
                     </div>
+                    <small class="form-text text-muted text-warning">{{error}}</small>
                     <hr>
                     <div class="row justify-content-center">
                     <button type="submit" class="btn btn-outline-success" [disabled]="!roomForm.valid">Create Room</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onClose()" #closeModal>Cancle</button>
                     </div>
                 </form>
             </div>

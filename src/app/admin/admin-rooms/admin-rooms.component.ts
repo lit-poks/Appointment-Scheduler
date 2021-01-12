@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Rooms } from '../rooms.model';
 import * as fromApp from '../../store/app.reducer';
+import * as AdminActions from '../store/admin.actions';
 import { Store } from '@ngrx/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdminRoomService } from './admin-room.service';
 
 @Component({
   selector: 'app-admin-rooms',
@@ -11,10 +13,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AdminRoomsComponent implements OnInit {
 
-  constructor(private store:Store<fromApp.AppState>) { }
+  constructor(private store:Store<fromApp.AppState>,private adminRoomsService:AdminRoomService) { }
 
+  @ViewChild('closeModal') closeModal;
   rooms:Rooms[];
   roomForm: FormGroup;
+  error:string;
 
   ngOnInit(): void {
     this.store.select('admin').subscribe(appState=>{
@@ -31,8 +35,20 @@ export class AdminRoomsComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('here');
-    console.log(this.roomForm);
+    if(this.adminRoomsService.checkExistingRoom(this.rooms,this.roomForm.value)){
+      this.error='This Room already Exists';
+    }
+    else{
+      this.error='';
+      this.store.dispatch(new AdminActions.AddRooms(this.roomForm.value));
+      this.closeModal.nativeElement.click();
+    }
+    
+  }
+
+  onClose(){
+    this.error='';
+    this.roomForm.reset();
   }
 
 }

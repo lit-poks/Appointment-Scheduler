@@ -1,0 +1,14 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="error-box">
+    <div class="row bg-danger">
+        <h3 class="text-white">Sorry!</h3>
+        <hr>
+    </div>
+    <div class="row message-body">
+        <p>{{message}}</p>
+    </div>
+    <hr>
+    <div class="row close-btn justify-content-center mr-5">
+        <button class="btn btn-primary btn-lg" (click)="onClose()">Close</button>
+    </div>
+</div>

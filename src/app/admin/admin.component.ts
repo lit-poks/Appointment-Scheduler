@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as fromApp from '../store/app.reducer';
-import { Appointments } from '../users/appointments.model';
+import * as AdminActions from './store/admin.actions';
 import { RegistrationRequest } from './registration-request.model';
-import { Rooms } from './rooms.model';
 
 @Component({
   selector: 'app-admin',
@@ -14,23 +13,29 @@ import { Rooms } from './rooms.model';
 export class AdminComponent implements OnInit ,OnDestroy{
 
   constructor(private store:Store<fromApp.AppState>) { }
-  rooms:Rooms[];
   registration: RegistrationRequest[];
+  alertMessage:string;
   storeSub:Subscription;
 
   ngOnInit(): void {
     this.storeSub=this.store.select('admin').subscribe(
       (adminState)=>{
-        this.rooms=adminState.rooms;
         this.registration=adminState.register
       }
     )
   }
 
+  onApprove(index:number){
+    this.store.dispatch(new AdminActions.ApproveRegistration(index));
+  }
+
+  onDecline(index:number){
+    this.store.dispatch(new AdminActions.DeclineRegistration(index));
+  }
+
   ngOnDestroy(){
     this.storeSub.unsubscribe();
   }
-
-  
+ 
 
 }

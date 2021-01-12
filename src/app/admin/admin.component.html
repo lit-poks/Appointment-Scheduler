@@ -1,2 +1,14 @@
 <app-header></app-header>
-<p>admin works!</p>
+<div class="container">
+    <div class="row shadow" *ngFor="let user of registration;let i=index">
+        <div class="col-md-9 ">
+            {{user.email}} Wants to register!
+        </div>
+        <div class="col-md-3 ">
+            <div>
+                <button type="button" class="btn btn-success mr-3" (click)="onApprove(i)">Approve</button>
+                <button type="button" class="btn btn-danger" (click)="onDecline(i)">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>

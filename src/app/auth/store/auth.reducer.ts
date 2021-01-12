@@ -1,4 +1,5 @@
 import { User } from "../user.model";
+import * as AuthActions from './auth.actions';
 
 export interface State{
     user:User;
@@ -13,9 +14,21 @@ const initialState:State={
 }
 
 
-export function authReducer(state=initialState,action){
+export function authReducer(state=initialState,action:AuthActions.AuthActions){
 
     switch(action.type){
+        case AuthActions.REGISTRATION_START:
+            return{
+                ...state,
+                authError:null,
+                isLoading: true
+            }
+        case AuthActions.REGISTRATION_SUCCESS:
+            return{
+                ...state,
+                authError:null,
+                isLoading:false
+            }
         default:
         return state;
     }

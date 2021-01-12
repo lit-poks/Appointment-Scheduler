@@ -4,9 +4,11 @@ import { SharedModule } from "../shared/shared.module";
 import { AdminComponent } from "./admin.component";
 import { AdminRoomsComponent } from './admin-rooms/admin-rooms.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { AdminRoomService } from "./admin-rooms/admin-room.service";
+import { AdminResolverService } from "./admin-resolver.service";
 
 const routes: Routes=[
-    {path: "",component:AdminComponent,data:{userType:'admin'},pathMatch: 'full'},
+    {path: "",component:AdminComponent,data:{userType:'admin'},pathMatch: 'full',resolve:[AdminResolverService]},
     {path: "rooms",component:AdminRoomsComponent,data:{userType:'admin'},pathMatch: 'full'}
 ]
 
@@ -19,6 +21,9 @@ const routes: Routes=[
         ReactiveFormsModule,
         SharedModule,
         RouterModule.forChild(routes)
+    ],
+    providers:[
+        AdminRoomService
     ]
 })
 export class AdminModule{}
