@@ -34,7 +34,7 @@
                 <div class="row">
                     <label for="rooms" class="form-label">Room</label>
                     <select class="form-control" id="rooms" formControlName="room">
-                        <option *ngFor="let room of rooms">{{room.roomName}}</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.roomName">{{room.roomName}}</option>
                     </select>
                 </div>
                 <div class="row">
@@ -44,10 +44,10 @@
 
                 <div class="row mt-3">
                     <div class="col-4">
-                        <button class="btn btn-success btn-lg" *ngIf="editMode" type="submit">Save</button>
+                        <button class="btn btn-success btn-lg" *ngIf="editMode" type="submit" [disabled]="!appointmentForm.valid && appointmentForm.value.room!='Select'">Save</button>
                     </div>
                     <div class="col-4">
-                        <button class="btn btn-success btn-lg" *ngIf="!editMode" type="submit">Create</button>
+                        <button class="btn btn-success btn-lg" *ngIf="!editMode" type="submit" [disabled]="!appointmentForm.valid">Create</button>
                     </div>
                     <div class="col-4">
                         <button class="btn btn-danger btn-lg" (click)="onCancle()">Cancle</button>

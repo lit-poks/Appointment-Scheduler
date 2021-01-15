@@ -58,7 +58,7 @@ export class UsersEditComponent implements OnInit ,OnDestroy{
     let timeStart:Date=new Date();
     let timeEnd:Date=new Date();
     let roomNo:number;
-    let roomName:string='hello';
+    let roomName:string='select';
     let createdBy=this.email;
 
     if(this.editMode){
@@ -80,7 +80,7 @@ export class UsersEditComponent implements OnInit ,OnDestroy{
           createdBy=appointment.createdBy
         }
       );
-    }
+      }
     
     this.appointmentForm=new FormGroup({
       'name':new FormControl(name,Validators.required),

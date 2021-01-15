@@ -63,9 +63,11 @@ export class AdminEffects {
                         alert('An Unknown errror Occured');
                     }
                     if (errRes.error.error.message === 'EMAIL_EXISTS') {
-                        let x = confirm('User Already Registered. Decline instead?');
-                        if (x) {
+                        if (confirm('User Already Registered. Decline instead?')) {
                             return of(new AdminActions.ProcessRegistration(index));
+                        }
+                        else{
+                            return of({type: 'RANDOM'});
                         }
                     }
                     alert('Successfully Approved');

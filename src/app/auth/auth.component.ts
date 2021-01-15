@@ -32,9 +32,9 @@ export class AuthComponent implements OnInit,OnDestroy {
   }
 
   onRegister(){
-    console.log(this.authenticationForm.value);
     this.store.dispatch(new AuthActions.RegistrationStart(this.authenticationForm.value));
     this.authenticationForm.reset();
+    alert('Succesfully Registered!');
   }
 
   initForm(){
