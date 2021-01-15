@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +13,16 @@ export class HeaderComponent implements OnInit {
 
   userType:string;
 
-  constructor(private route:ActivatedRoute) {}
+  constructor(private route:ActivatedRoute,private router:Router,private store:Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(data=>{
       this.userType=data.userType
     })
+  }
+ 
+  onLogout(){
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   

@@ -29,6 +29,39 @@ export function authReducer(state=initialState,action:AuthActions.AuthActions){
                 authError:null,
                 isLoading:false
             }
+        case AuthActions.LOGIN_START:
+            return{
+                ...state,
+                authError:null,
+                isLoading:true
+            }
+        case AuthActions.LOGIN_SUCCESS:
+            const user=new User(action.payload.email,action.payload.userId,action.payload.token,action.payload.expirationDate);
+            return{
+                ...state,
+                authError:null,
+                user:user,
+                isLoading:null
+            }
+        case AuthActions.AUTHENTICATION_FAIL:;
+            return{
+                ...state,
+                authError: action.payload,
+                user:null,
+                isLoading:null
+            }
+        case AuthActions.LOGOUT:
+            return{
+                ...state,
+                authError:null,
+                user:null
+            }
+
+            case AuthActions.CLEAR_ERROR:
+            return{
+                ...state,
+                authError: null
+            }
         default:
         return state;
     }

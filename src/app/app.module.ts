@@ -8,8 +8,10 @@ import * as fromApp from './store/app.reducer';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminEffects } from './admin/store/admin.effects';
+import { UsersEffectts } from './users/store/users.effects';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,9 @@ import { AdminEffects } from './admin/store/admin.effects';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects,AdminEffects])
+    EffectsModule.forRoot([AuthEffects,AdminEffects,UsersEffectts])
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS,useClass: AuthInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

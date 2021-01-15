@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row justify-content-center">
+        <h2>Create Form:Edit Form</h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group bg-info rounded">
+            <form [formGroup]="appointmentForm" class="shadow p-5" (ngSubmit)="onSubmit()">
+
+                <div class="row">
+                    <label for="agenda" class="form-label">Agenda/Name:</label>
+                    <input type="text" class="form-control" id="agenda" formControlName="name">
+                </div>
+
+                <div class="row">
+                    <label for="appDate" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="appDate" formControlName="date" >
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="startTime" class="form-label">Appointment Start</label>
+                        <input type="time" class="form-control" id="startTime" formControlName="timeStart">
+                    </div>
+                    <div class="col-6">
+                        <label for="endTime" class="form-label">Appointment End</label>
+                        <input type="time" class="form-control" id="endTime" formControlName="timeEnd">
+                    </div>
+                </div>
+                <div class="row" *ngIf="booked">
+                    <small class="text-danger"><strong>The Room is booked at this specified time!</strong></small>
+                </div>
+
+                <div class="row">
+                    <label for="rooms" class="form-label">Room</label>
+                    <select class="form-control" id="rooms" formControlName="room">
+                        <option *ngFor="let room of rooms">{{room.roomName}}</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="createdBy" class="form-label">Created By</label>
+                    <input type="text" class="form-control" id="appDate" disabled formControlName="createdBy">
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <button class="btn btn-success btn-lg" *ngIf="editMode" type="submit">Save</button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-success btn-lg" *ngIf="!editMode" type="submit">Create</button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-danger btn-lg" (click)="onCancle()">Cancle</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit,OnDestroy {
 
   isLoading:boolean=false;
   authenticationForm: FormGroup;
-  authError:string;
+  authError=null;
   errorMessage:string;
   storeSub:Subscription;
 
@@ -45,7 +45,12 @@ export class AuthComponent implements OnInit,OnDestroy {
   }
 
   onHandleError(){
-    this.authError='';
+    this.authError=this.store.dispatch(new AuthActions.ClearError());
+  }
+
+  onSignin(){
+    this.store.dispatch(new AuthActions.LoginStart(this.authenticationForm.value));
+    this.authenticationForm.reset();
   }
 
   ngOnDestroy(){

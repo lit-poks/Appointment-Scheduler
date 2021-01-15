@@ -6,10 +6,13 @@ import { AdminRoomsComponent } from './admin-rooms/admin-rooms.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AdminRoomService } from "./admin-rooms/admin-room.service";
 import { AdminResolverService } from "./admin-resolver.service";
+import { AdminRoomResolverService } from "./admin-rooms/admin-room-resolver.service";
+import { AuthGuard } from "../auth/auth.guard";
+import {AdminGuard} from './admin.guard';
 
 const routes: Routes=[
-    {path: "",component:AdminComponent,data:{userType:'admin'},pathMatch: 'full',resolve:[AdminResolverService]},
-    {path: "rooms",component:AdminRoomsComponent,data:{userType:'admin'},pathMatch: 'full'}
+    {path: "",component:AdminComponent,data:{userType:'admin'},pathMatch: 'full',canActivate:[AuthGuard,AdminGuard],resolve:[AdminResolverService]},
+    {path: "rooms",component:AdminRoomsComponent,data:{userType:'admin'},pathMatch: 'full',canActivate:[AuthGuard,AdminGuard],resolve:[AdminRoomResolverService]}
 ]
 
 @NgModule({

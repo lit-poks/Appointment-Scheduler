@@ -7,6 +7,7 @@ import { catchError, map, switchMap, withLatestFrom } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as fromApp from '../../store/app.reducer';
 import { RegistrationRequest } from "../registration-request.model";
+import { Rooms } from "../rooms.model";
 import * as AdminActions from '../store/admin.actions';
 import { State } from './admin.reducer';
 
@@ -94,6 +95,37 @@ export class AdminEffects {
         ofType(AdminActions.DECLINE_REGISTRATION),
         switchMap((adminAction: AdminActions.DeclineRegistration) => {
             return of(new AdminActions.ProcessRegistration(adminAction.payload));
+        })
+    )
+
+    @Effect()
+    fetchRooms=this.actions$.pipe(
+        ofType(AdminActions.FETCH_ROOMS),
+        switchMap(()=>{
+            return this.http.get<Rooms[]>(
+                'https://appointment-scheduler-f662d-default-rtdb.firebaseio.com/rooms/rooms.json'
+            );
+        })
+        ,map(rooms=>{
+            return rooms.map(rooms=>{
+                return {...rooms}
+            })
+        })
+        ,map(rooms=>{
+            return new AdminActions.SetRooms(rooms);
+        })
+    )
+
+    @Effect({dispatch:false})
+    setRooms=this.actions$.pipe(
+        ofType(AdminActions.ADD_ROOMS)
+        ,withLatestFrom(this.store.select('admin'))
+        ,switchMap(([actionData,adminState]:[AdminActions.SetRooms,State])=>{
+            console.log(adminState.rooms)
+            return this.http.put(
+                'https://appointment-scheduler-f662d-default-rtdb.firebaseio.com/rooms/rooms.json',
+                adminState.rooms
+            )
         })
     )
 

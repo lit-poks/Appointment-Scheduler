@@ -11,8 +11,6 @@ export interface State{
 
 const initialState:State={
     rooms:[
-        new Rooms(1,'Meeting Hall'),
-        new Rooms(2,'Canteen')
     ],
     register: [
     ],

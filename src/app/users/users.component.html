@@ -1,2 +1,49 @@
 <app-header></app-header>
-<p>users works!</p>
+<div class="row justify-content-center align-items-center" *ngIf="isLoading">
+    <app-loading-spinner class=""></app-loading-spinner>
+</div>
+<div class="container" *ngIf="!isLoading">
+    <h3>Appointments</h3>
+    <div class="row shadow" *ngFor="let appointment of appointments;let i=index">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-8 text-center">
+                    <h2>{{appointment.name}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <h5>Room:</h5>
+                </div>
+                <div class="col">
+                    {{appointment.room.roomName}}--{{appointment.room.roomNo}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <h5>Date:</h5>
+                </div>
+                <div class="col">
+                    {{appointment.date.toDateString()}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <h5>From:  {{appointment.beginTime.toLocaleTimeString()}}</h5>
+                </div>
+                <div class="col">
+                    <h5>To: {{appointment.endTime.toLocaleTimeString()}}</h5>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-9" *ngIf="loggedInUser==appointment.createdBy">
+                    <button class="btn btn-warning btn-lg mr-3" (click)="onEdit(i)">Edit</button>
+                    <button class="btn btn-danger btn-lg" (click)="onDelete(i)">Delete</button>
+                </div>
+                <div class="col-3 text-center">
+                    <strong>Created By: {{appointment.createdBy}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
