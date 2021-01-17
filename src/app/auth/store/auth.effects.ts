@@ -96,7 +96,7 @@ export class AuthEffects{
     authRedirect=this.actions$.pipe(
         ofType(AuthActions.LOGIN_SUCCESS),
         tap((loginSuccessAction:AuthActions.LoginSuccess)=>{
-            if(loginSuccessAction.payload.email=='test@test.com'){
+            if(loginSuccessAction.payload.email=='admin@admin.com'){
                 
                 this.router.navigate(['/admin']);
             }

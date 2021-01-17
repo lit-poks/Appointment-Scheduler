@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit ,OnDestroy{
         this.registration=adminState.register
       }
     )
+    this.registration
   }
 
   onApprove(index:number){

@@ -21,15 +21,10 @@ export class AdminResolverService implements Resolve<RegistrationRequest[]>{
                 return adminState.register
             }),
             switchMap(registration=>{
-                if(registration.length==0){
                     this.store.dispatch(new AdminActions.FetchRegistration());
                     return this.actions$.pipe(
                         ofType(AdminActions.SET_REGISTRATION),take(1)
                     );
-                }
-                else{
-                    return of(registration);
-                }
             })
         )
     }

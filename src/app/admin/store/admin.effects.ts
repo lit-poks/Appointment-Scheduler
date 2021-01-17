@@ -25,7 +25,6 @@ export class AdminEffects {
             );
         })
         , map(register => {
-            console.log(register)
             let x: RegistrationRequest[] = [];
             for (let user in register) {
                 x.push(register[user]);
@@ -33,7 +32,7 @@ export class AdminEffects {
             return x;
         })
         , map(register => {
-            console.log(register);
+           
             return new AdminActions.SetRegistration(register);
         })
     )
@@ -46,7 +45,6 @@ export class AdminEffects {
             let email = adminState.register[actionData.payload].email;
             let password = adminState.register[actionData.payload].password;
             let index = actionData.payload;
-            console.log(environment.firebaseAPIKey)
             return this.http.post(
                 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
                 {
@@ -56,6 +54,7 @@ export class AdminEffects {
                 }
             ).pipe(
                 map(resData => {
+                    alert('Successfully Approved');
                     return new AdminActions.ProcessRegistration(index);
                 }),
                 catchError((errRes: any) => {
@@ -70,9 +69,7 @@ export class AdminEffects {
                             return of({type: 'RANDOM'});
                         }
                     }
-                    alert('Successfully Approved');
                     return of({ type: 'asdfsda' })
-
                 })
             )
 
@@ -123,7 +120,6 @@ export class AdminEffects {
         ofType(AdminActions.ADD_ROOMS)
         ,withLatestFrom(this.store.select('admin'))
         ,switchMap(([actionData,adminState]:[AdminActions.SetRooms,State])=>{
-            console.log(adminState.rooms)
             return this.http.put(
                 'https://appointment-scheduler-f662d-default-rtdb.firebaseio.com/rooms/rooms.json',
                 adminState.rooms

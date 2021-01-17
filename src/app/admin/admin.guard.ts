@@ -20,7 +20,7 @@ export class AdminGuard implements CanActivate{
         }),
         map(
             user=>{
-                const isUser=user.email=='test@test.com';
+                const isUser=user.email=='admin@admin.com';
                 if(isUser){
                     return true;
                 }

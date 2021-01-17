@@ -1,6 +1,6 @@
 <app-header></app-header>
-<div class="container">
-    <div class="row shadow" *ngFor="let user of registration;let i=index">
+<div class="container" *ngIf="registration.length!=0">
+    <div class="row shadow" *ngFor="let user of registration;let i=index" >
         <div class="col-md-9 ">
             {{user.email}} Wants to register!
         </div>
@@ -10,5 +10,10 @@
                 <button type="button" class="btn btn-danger" (click)="onDecline(i)">Decline</button>
             </div>
         </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <h2 *ngIf="registration.length==0">No New Registration</h2>
     </div>
 </div>
