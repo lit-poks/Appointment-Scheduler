@@ -102,7 +102,7 @@ export class UsersEditComponent implements OnInit ,OnDestroy{
     });
     let createdBy:string=this.appointmentForm.value.createdBy;
     let appointment:Appointments=new Appointments(name,date,beginTime,endTime,room,createdBy);
-
+    if(appointment.createdBy==this.email){
     if(!this.usersEditService.checkAppointmentValidity(appointment)){
       this.booked=false;
       if(this.editMode){
@@ -118,6 +118,11 @@ export class UsersEditComponent implements OnInit ,OnDestroy{
     else{
       this.booked=true;
     }
+  }
+  else{
+    alert('Only the appointment creator may edit this!');
+    this.router.navigate(['/users']);
+  }
     
   }
 
