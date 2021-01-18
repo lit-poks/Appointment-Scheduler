@@ -15,6 +15,9 @@
             <li class="nav-item" routerLinkActive="active" routerLink="/users" *ngIf="userType==='non-admin'">
                 <a class="nav-link">Appointments</a>
             </li>
+            <li class="nav-item" routerLinkActive="active" routerLink="/users/appointment/myAppointments" *ngIf="userType==='non-admin'">
+                <a class="nav-link">My Appointments</a>
+            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right ml-3">
             <li class="nav-item">

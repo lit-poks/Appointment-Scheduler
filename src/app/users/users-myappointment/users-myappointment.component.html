@@ -2,9 +2,9 @@
 <div class="row justify-content-center align-items-center" *ngIf="isLoading">
     <app-loading-spinner class=""></app-loading-spinner>
 </div>
-<div class="container" *ngIf="!isLoading&&appointments.length!=0">
-    <h3>Appointments</h3>
-    <div class="row shadow border rounded"  *ngFor="let appointment of appointments;let i=index">
+<div class="container" *ngIf="!isLoading&&Myappointments.length!=0">
+    <h3>Your Appointments</h3>
+    <div class="row shadow" *ngFor="let appointment of Myappointments;let i=index">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-8 text-center">
@@ -47,8 +47,8 @@
         </div>
     </div>
 </div>
-<div class="container" *ngIf="!isLoading&&appointments.length==0">
+<div class="container" *ngIf="!isLoading&&Myappointments.length==0">
     <div class="row">
-        <h2>No Appointments to Show</h2>
+        <h2>You Do Not Have Any Appointments</h2>
     </div>
 </div>

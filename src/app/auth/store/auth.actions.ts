@@ -30,7 +30,7 @@ export class LoginStart implements Action{
 
 export class LoginSuccess implements Action{
     readonly type=LOGIN_SUCCESS;
-    constructor(public payload:{email: string, userId: string, token: string, expirationDate: Date}){}
+    constructor(public payload:{email: string, userId: string, token: string, expirationDate: Date,redirect:boolean}){}
 }
 
 export class Logout implements Action{

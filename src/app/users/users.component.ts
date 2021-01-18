@@ -18,7 +18,6 @@ export class UsersComponent implements OnInit, OnDestroy{
   storeSub: Subscription;
   storeAuthSub:Subscription;
   isLoading=false;
-  date;
   loggedInUser=null;
 
 

@@ -8,10 +8,12 @@ import { UsersResolverService } from "./users-resolver.service";
 import { UsersEditService } from "./users-edit/users-edit.service";
 import { AuthGuard } from "../auth/auth.guard";
 import { UsersGuard } from "./users.guard";
+import { UsersMyappointmentComponent } from './users-myappointment/users-myappointment.component';
 
 const routes:Routes=[
     {path: '', component:UsersComponent,data:{userType: 'non-admin'},canActivate:[AuthGuard,UsersGuard],resolve:[UsersResolverService]},
-    {path:'appointment',data:{userType: 'non-admin'},canActivate:[AuthGuard],resolve:[UsersResolverService],children:[
+    {path:'appointment',data:{userType: 'non-admin'},canActivate:[AuthGuard,UsersGuard],resolve:[UsersResolverService],children:[
+        {path:'myAppointments',component:UsersMyappointmentComponent,pathMatch: 'full'},
         {path:'create',component:UsersEditComponent,pathMatch:'full'},
         {path: ':index/edit',component:UsersEditComponent,pathMatch:'full'}
     ]}
@@ -21,6 +23,7 @@ const routes:Routes=[
     declarations:[
         UsersComponent,
         UsersEditComponent,
+        UsersMyappointmentComponent,
     ],
     imports:[
         ReactiveFormsModule,

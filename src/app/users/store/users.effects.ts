@@ -19,7 +19,6 @@ export class UsersEffectts{
         ofType(UsersActions.SET_APPOINTMENT,UsersActions.UPDATE_APPOINTMENTS,UsersActions.DELETE_APPOINTMENT)
         ,withLatestFrom(this.store.select('users'))
         ,switchMap(([actionData,usersState]:[UsersActions.SetAppointment,State])=>{
-            console.log('here');
             return this.http.put(
                 'https://appointment-scheduler-f662d-default-rtdb.firebaseio.com/appointments/appointments.json',
                 usersState.appointments
