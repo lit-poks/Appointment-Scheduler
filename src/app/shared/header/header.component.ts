@@ -25,5 +25,14 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(new AuthActions.Logout());
   }
 
+  onClickBrand(){
+    if(this.userType=='admin'){
+      this.router.navigate(['/admin'])
+    }
+    else{
+      this.router.navigate(['/users'])
+    }
+  }
+
   
 }

@@ -32,6 +32,7 @@ export class UsersComponent implements OnInit, OnDestroy{
     );
     this.storeAuthSub=this.store.select('auth').subscribe(
       authState=>{
+        if(authState.user!=null)
         this.loggedInUser=authState.user.email.split('@')[0];
       }
     );
