@@ -136,7 +136,7 @@ export class AuthEffects{
                     userId:loadedUser.id,
                     token:loadedUser.token,
                     expirationDate:new Date(userData._tokenExpirationDate,),
-                    redirect: false
+                    redirect: true
                 })
             }
             return {type: 'Nothing'}
